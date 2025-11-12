@@ -175,6 +175,14 @@ tolerations: []
 # Affinity/anti-affinity rules for advanced scheduling
 affinity: {}
 
+# PodDisruptionBudget configuration
+pdb:
+  # Enable PDB to control voluntary disruptions
+  enabled: false
+  # Only set one of the following fields
+  # minAvailable: 1
+  maxUnavailable: 1
+
 # Liveness and readiness probes
 # Enable and specify the standard Kubernetes probe fields below.
 # Note: adjust paths/ports to match your application endpoints.
