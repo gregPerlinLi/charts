@@ -2,7 +2,7 @@ apiVersion: v2
 name: strix
 description: A Helm chart for deploying Strix AI Security Testing Agent on Kubernetes
 type: application
-version: 0.1.0
+version: 0.2.0
 appVersion: "latest"
 kubeVersion: ">=1.19.0-0"
 keywords:
