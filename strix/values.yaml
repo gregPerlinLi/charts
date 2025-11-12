@@ -100,7 +100,7 @@ dind:
     repository: docker
     tag: "24-dind"
     pullPolicy: IfNotPresent
-  
+
   # Resources for the DinD container (adjust for your workload)
   resources:
     limits:
@@ -109,10 +109,17 @@ dind:
     requests:
       cpu: 1000m
       memory: 2Gi
-  
+
   # Security context for DinD (privileged is required by Docker daemon)
   securityContext:
     privileged: true
+    runAsUser: 0
+    runAsNonRoot: false
+    allowPrivilegeEscalation: true
+    capabilities:
+      add:
+        - NET_ADMIN
+        - SYS_ADMIN
 
 service:
   # Kubernetes Service type: ClusterIP | NodePort | LoadBalancer

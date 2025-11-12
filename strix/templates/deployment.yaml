@@ -27,16 +27,6 @@ spec:
       serviceAccountName: {{ include "strix.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      {{- if .Values.dind.enabled }}
-      # Init container to wait for Docker daemon
-      initContainers:
-        - name: wait-for-docker
-          image: {{ .Values.dind.image.repository }}:{{ .Values.dind.image.tag }}
-          command: ['sh', '-c', 'until docker info; do echo "Waiting for Docker daemon..."; sleep 2; done']
-          env:
-            - name: DOCKER_HOST
-              value: "tcp://localhost:2375"
-      {{- end }}
       containers:
         {{- if .Values.dind.enabled }}
         # Docker-in-Docker sidecar for sandbox environment
@@ -48,6 +38,10 @@ spec:
           env:
             - name: DOCKER_TLS_CERTDIR
               value: ""
+          args:
+            - "--host=tcp://0.0.0.0:2375"
+            - "--host=unix:///var/run/docker.sock"
+            - "--storage-driver=overlay2"
           volumeMounts:
             - name: dind-storage
               mountPath: /var/lib/docker
@@ -66,7 +60,9 @@ spec:
           args:
             - |
               echo "Strix AI Security Testing Agent"
-              echo "Waiting for initialization..."
+              echo "Starting..."
+              # 如果需要可在此启动 strix 命令；默认镜像中应包含 CLI
+              # 例如：strix -n -t ./ || sleep infinity
               sleep infinity
           env:
             - name: STRIX_LLM
@@ -108,13 +104,20 @@ spec:
             {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          {{- if and .Values.readinessProbe.enabled (not .Values.dind.enabled) }}
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
+          {{- else if .Values.dind.enabled }}
+          readinessProbe:
+            exec:
+              command: ["/bin/sh","-c","docker info >/dev/null 2>&1"]
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 30
+          {{- end }}
           {{- if .Values.livenessProbe.enabled }}
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
-          {{- end }}
-          {{- if .Values.readinessProbe.enabled }}
-          readinessProbe:
-            {{- toYaml .Values.readinessProbe | nindent 12 }}
           {{- end }}
       volumes:
         {{- if .Values.dind.enabled }}
