@@ -50,54 +50,54 @@ helm install my-strix . \
 
 ### Basic Configuration
 
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| `replicaCount` | Number of replicas | `1` |
-| `image.registry` | Image registry | `docker.io` |
-| `image.repository` | Image repository | `usestrix/strix` |
-| `image.tag` | Image tag | `Chart appVersion` |
-| `image.pullPolicy` | Image pull policy | `IfNotPresent` |
+| Parameter          | Description        | Default            |
+|--------------------|--------------------|--------------------|
+| `replicaCount`     | Number of replicas | `1`                |
+| `image.registry`   | Image registry     | `docker.io`        |
+| `image.repository` | Image repository   | `usestrix/strix`   |
+| `image.tag`        | Image tag          | `Chart appVersion` |
+| `image.pullPolicy` | Image pull policy  | `IfNotPresent`     |
 
 ### Strix Configuration
 
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| `strix.llm.provider` | LLM provider and model | `openai/gpt-4` |
-| `strix.llm.apiKey` | LLM API key (required) | `""` |
-| `strix.llm.apiBase` | Custom API base URL | `""` |
-| `strix.perplexity.apiKey` | Perplexity API key for search | `""` |
-| `strix.nonInteractive` | Run in headless mode | `true` |
-| `strix.target` | Default target for scanning | `""` |
-| `strix.instructions` | Custom instructions | `""` |
+| Parameter                 | Description                   | Default        |
+|---------------------------|-------------------------------|----------------|
+| `strix.llm.provider`      | LLM provider and model        | `openai/gpt-4` |
+| `strix.llm.apiKey`        | LLM API key (required)        | `""`           |
+| `strix.llm.apiBase`       | Custom API base URL           | `""`           |
+| `strix.perplexity.apiKey` | Perplexity API key for search | `""`           |
+| `strix.nonInteractive`    | Run in headless mode          | `true`         |
+| `strix.target`            | Default target for scanning   | `""`           |
+| `strix.instructions`      | Custom instructions           | `""`           |
 
 ### Docker-in-Docker Configuration
 
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| `dind.enabled` | Enable Docker-in-Docker | `true` |
-| `dind.image.repository` | DinD image repository | `docker` |
-| `dind.image.tag` | DinD image tag | `24-dind` |
-| `dind.resources.limits.cpu` | DinD CPU limit | `2000m` |
-| `dind.resources.limits.memory` | DinD memory limit | `4Gi` |
+| Parameter                      | Description             | Default   |
+|--------------------------------|-------------------------|-----------|
+| `dind.enabled`                 | Enable Docker-in-Docker | `true`    |
+| `dind.image.repository`        | DinD image repository   | `docker`  |
+| `dind.image.tag`               | DinD image tag          | `24-dind` |
+| `dind.resources.limits.cpu`    | DinD CPU limit          | `2000m`   |
+| `dind.resources.limits.memory` | DinD memory limit       | `4Gi`     |
 
 ### Persistence Configuration
 
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| `persistence.enabled` | Enable persistence | `true` |
-| `persistence.size` | PVC size | `10Gi` |
-| `persistence.accessMode` | Access mode | `ReadWriteOnce` |
-| `persistence.storageClass` | Storage class | `""` |
-| `persistence.existingClaim` | Use existing PVC | `""` |
+| Parameter                   | Description        | Default         |
+|-----------------------------|--------------------|-----------------|
+| `persistence.enabled`       | Enable persistence | `true`          |
+| `persistence.size`          | PVC size           | `10Gi`          |
+| `persistence.accessMode`    | Access mode        | `ReadWriteOnce` |
+| `persistence.storageClass`  | Storage class      | `""`            |
+| `persistence.existingClaim` | Use existing PVC   | `""`            |
 
 ### Resources
 
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| `resources.limits.cpu` | CPU limit | `2000m` |
-| `resources.limits.memory` | Memory limit | `4Gi` |
-| `resources.requests.cpu` | CPU request | `500m` |
-| `resources.requests.memory` | Memory request | `1Gi` |
+| Parameter                   | Description    | Default |
+|-----------------------------|----------------|---------|
+| `resources.limits.cpu`      | CPU limit      | `2000m` |
+| `resources.limits.memory`   | Memory limit   | `4Gi`   |
+| `resources.requests.cpu`    | CPU request    | `500m`  |
+| `resources.requests.memory` | Memory request | `1Gi`   |
 
 ## Usage Examples
 

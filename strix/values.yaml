@@ -44,12 +44,12 @@ securityContext:
 strix:
   # LLM Configuration
   llm:
-    # Provider and model (e.g., "openai/gpt-4", "anthropic/claude-sonnet-3-5")
-    provider: "openai/gpt-4"
+    # Provider and model (e.g., "openai/gpt-4o", "anthropic/claude-sonnet-3-5")
+    provider: "openai/gpt-4o"
     # API Key - should be provided via secret
-    apiKey: ""
+    apiKey: "xxx"
     # Optional: Custom API base URL (for local models like Ollama)
-    apiBase: ""
+    apiBase: "https://api.openai.com/v1"
   
   # Optional: Perplexity API for search capabilities
   perplexity:
