@@ -102,9 +102,9 @@ jobs:
                 KEY_FOR_HELM="${KEY_UID:-$KEY_ID}"
                 echo "Signing with GPG key $KEY_FOR_HELM"
                 if [ -n "${PASSFILE:-}" ]; then
-                  helm package "$chart_dir" --destination repo --sign --key "$KEY_FOR_HELM" --keyring ~/.gnupg/pubring.gpg --passphrase-file "$PASSFILE"
+                  helm package "$chart_dir" --destination repo --sign --key "$KEY_FOR_HELM" --keyring ~/.gnupg/secring.gpg --passphrase-file "$PASSFILE"
                 else
-                  helm package "$chart_dir" --destination repo --sign --key "$KEY_FOR_HELM" --keyring ~/.gnupg/pubring.gpg
+                  helm package "$chart_dir" --destination repo --sign --key "$KEY_FOR_HELM" --keyring ~/.gnupg/secring.gpg
                 fi
               else
                 helm package "$chart_dir" --destination repo
