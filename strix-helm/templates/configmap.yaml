@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "strix.configMapName" . }}
+  labels:
+    {{- include "strix.labels" . | nindent 4 }}
+data:
+  llm-provider: {{ .Values.strix.llm.provider | quote }}
+  {{- if .Values.strix.llm.apiBase }}
+  llm-api-base: {{ .Values.strix.llm.apiBase | quote }}
+  {{- end }}
+  non-interactive: {{ .Values.strix.nonInteractive | quote }}
+  {{- if .Values.strix.target }}
+  target: {{ .Values.strix.target | quote }}
+  {{- end }}
+  {{- if .Values.strix.instructions }}
+  instructions: {{ .Values.strix.instructions | quote }}
+  {{- end }}

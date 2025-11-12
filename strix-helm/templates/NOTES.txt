@@ -1,0 +1,52 @@
+Thank you for installing {{ .Chart.Name }}!
+
+Your release is named {{ .Release.Name }}.
+
+To learn more about the release, try:
+
+  $ helm status {{ .Release.Name }}
+  $ helm get all {{ .Release.Name }}
+
+🦉 Strix AI Security Testing Agent has been deployed!
+
+📋 Configuration:
+  - LLM Provider: {{ .Values.strix.llm.provider }}
+  - Namespace: {{ .Release.Namespace }}
+  - Service: {{ include "strix.fullname" . }}
+
+🚀 Quick Start:
+
+1. Get the pod name:
+   kubectl get pods -n {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "strix.name" . }},app.kubernetes.io/instance={{ .Release.Name }}"
+
+2. Execute Strix security scan:
+   kubectl exec -it <pod-name> -n {{ .Release.Namespace }} -- strix --target <your-target>
+
+3. View scan results:
+   kubectl exec -it <pod-name> -n {{ .Release.Namespace }} -- ls -la {{ .Values.persistence.mountPath }}
+
+📖 Examples:
+
+   # Scan a local directory
+   kubectl exec -it <pod-name> -n {{ .Release.Namespace }} -- strix --target /workspace/myapp
+
+   # Scan a GitHub repository
+   kubectl exec -it <pod-name> -n {{ .Release.Namespace }} -- strix --target https://github.com/org/repo
+
+   # Scan a web application
+   kubectl exec -it <pod-name> -n {{ .Release.Namespace }} -- strix --target https://example.com
+
+   # Headless scan (non-interactive)
+   kubectl exec -it <pod-name> -n {{ .Release.Namespace }} -- strix -n --target https://example.com
+
+⚠️  Important Notes:
+   - Only test systems you own or have permission to test
+   - Ensure your LLM API key is properly configured
+   - Scan results are persisted in: {{ .Values.persistence.mountPath }}
+
+📚 Documentation:
+   - Strix Docs: https://usestrix.com
+   - GitHub: https://github.com/usestrix/strix
+   - Discord: https://discord.gg/YjKFvEZSdZ
+
+Happy hacking! 🔍🛡️
