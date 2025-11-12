@@ -43,6 +43,24 @@ jobs:
       - name: Set up Helm
         uses: azure/setup-helm@v4
 
+      - name: Import GPG signing key (optional)
+        if: ${{ secrets.HELM_GPG_PRIVATE_KEY != '' }}
+        env:
+          HELM_GPG_PRIVATE_KEY: ${{ secrets.HELM_GPG_PRIVATE_KEY }}
+          HELM_GPG_PASSPHRASE: ${{ secrets.HELM_GPG_PASSPHRASE }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.gnupg
+          chmod 700 ~/.gnupg
+          printf "%s" "$HELM_GPG_PRIVATE_KEY" | gpg --batch --import
+          gpg --list-secret-keys --keyid-format=long
+          KEY_ID=$(gpg --list-secret-keys --with-colons | awk -F: '/^sec/{print $5; exit}')
+          echo "KEY_ID=$KEY_ID" >> "$GITHUB_ENV"
+          echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
+          echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
+          gpgconf --kill gpg-agent || true
+
       - name: Package charts and build index
         shell: bash
         run: |
@@ -65,7 +83,12 @@ jobs:
               echo "Packaging $chart_dir"
               helm dependency build "$chart_dir" || true
               helm lint "$chart_dir" || true
-              helm package "$chart_dir" --destination repo
+              if [ -n "${KEY_ID:-}" ]; then
+                echo "Signing with GPG key $KEY_ID"
+                helm package "$chart_dir" --destination repo --sign --key "$KEY_ID"
+              else
+                helm package "$chart_dir" --destination repo
+              fi
             done
           fi
           # Build or merge index.yaml
