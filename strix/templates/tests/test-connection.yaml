@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ include "strix.fullname" . }}-test-connection
+  labels:
+    {{- include "strix.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox:1.36
+      command:
+        - sh
+        - -c
+        - wget -qO- http://{{ include "strix.fullname" . }}:{{ .Values.service.port }} || exit 1
+  restartPolicy: Never
