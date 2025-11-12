@@ -11,6 +11,7 @@ keywords:
   - ai
   - vulnerability-scanner
 home: https://usestrix.com
+icon: https://usestrix.com/favicon.ico
 sources:
   - https://github.com/usestrix/strix
 maintainers:
