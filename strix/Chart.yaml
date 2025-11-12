@@ -17,3 +17,20 @@ sources:
 maintainers:
   - name: Strix Team
     email: hello@usestrix.com
+annotations:
+  artifacthub.io/prerelease: "false"
+  artifacthub.io/license: Apache-2.0
+  artifacthub.io/containsSecurityUpdates: "false"
+  artifacthub.io/category: security
+  artifacthub.io/links: |
+    - name: homepage
+      url: https://usestrix.com
+    - name: source
+      url: https://github.com/usestrix/strix
+  artifacthub.io/images: |
+    - name: strix
+      image: docker.io/usestrix/strix:latest
+    - name: sandbox
+      image: docker.io/usestrix/strix-sandbox:latest
+    - name: dind
+      image: docker:24-dind
