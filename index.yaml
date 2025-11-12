@@ -20,7 +20,47 @@ entries:
       artifacthub.io/prerelease: "false"
     apiVersion: v2
     appVersion: latest
-    created: "2025-11-12T13:10:23.865147044Z"
+    created: "2025-11-12T15:38:53.016071831Z"
+    description: A Helm chart for deploying Strix AI Security Testing Agent on Kubernetes
+    digest: 9d4a7b1e6eb719c5aaa627b7880c42327910236ff0e352a785b8fd5f8cbc812d
+    home: https://usestrix.com
+    icon: https://usestrix.com/favicon.ico
+    keywords:
+    - security
+    - penetration-testing
+    - ai
+    - vulnerability-scanner
+    kubeVersion: '>=1.19.0-0'
+    maintainers:
+    - email: hello@usestrix.com
+      name: Strix Team
+    name: strix
+    sources:
+    - https://github.com/usestrix/strix
+    type: application
+    urls:
+    - https://gregPerlinLi.github.io/charts/strix-0.3.0.tgz
+    version: 0.3.0
+  - annotations:
+      artifacthub.io/category: security
+      artifacthub.io/containsSecurityUpdates: "false"
+      artifacthub.io/images: |-
+        - name: strix
+          image: docker.io/usestrix/strix:latest
+        - name: sandbox
+          image: docker.io/usestrix/strix-sandbox:latest
+        - name: dind
+          image: docker:24-dind
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/links: |
+        - name: homepage
+          url: https://usestrix.com
+        - name: source
+          url: https://github.com/usestrix/strix
+      artifacthub.io/prerelease: "false"
+    apiVersion: v2
+    appVersion: latest
+    created: "2025-11-12T15:38:53.015244979Z"
     description: A Helm chart for deploying Strix AI Security Testing Agent on Kubernetes
     digest: 84417dfdbbbf34a0b07384ed832a8a3818ee9b2be23536a232e4cefa7e2a04a0
     home: https://usestrix.com
@@ -43,7 +83,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: latest
-    created: "2025-11-12T13:10:23.864325125Z"
+    created: "2025-11-12T15:38:53.014411655Z"
     description: A Helm chart for deploying Strix AI Security Testing Agent on Kubernetes
     digest: fe598fc26471cc0954e640d8848f9ec9ab055a13ab411d4c66e27990de06347c
     home: https://usestrix.com
@@ -62,4 +102,4 @@ entries:
     urls:
     - https://gregPerlinLi.github.io/charts/strix-0.1.0.tgz
     version: 0.1.0
-generated: "2025-11-12T13:10:23.863685396Z"
+generated: "2025-11-12T15:38:53.013748249Z"
