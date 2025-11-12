@@ -25,6 +25,9 @@ concurrency:
 jobs:
   release:
     runs-on: ubuntu-latest
+    env:
+      HELM_GPG_PRIVATE_KEY: ${{ secrets.HELM_GPG_PRIVATE_KEY }}
+      HELM_GPG_PASSPHRASE: ${{ secrets.HELM_GPG_PASSPHRASE }}
     steps:
       - name: Checkout source
         uses: actions/checkout@v5
@@ -44,7 +47,7 @@ jobs:
         uses: azure/setup-helm@v4
 
       - name: Import GPG signing key (optional)
-        if: ${{ secrets.HELM_GPG_PRIVATE_KEY != '' }}
+        if: ${{ env.HELM_GPG_PRIVATE_KEY != '' }}
         env:
           HELM_GPG_PRIVATE_KEY: ${{ secrets.HELM_GPG_PRIVATE_KEY }}
           HELM_GPG_PASSPHRASE: ${{ secrets.HELM_GPG_PASSPHRASE }}
